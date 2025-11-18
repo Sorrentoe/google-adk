@@ -1,8 +1,6 @@
 from google.adk.agents import Agent, ParallelAgent, SequentialAgent
 from google.adk.tools import google_search
 
-from sequential_agent.agent import root_agent
-
 hotel_agent = Agent(
     name="HotelAgent",
     model="gemini-2.0-flash",
@@ -57,11 +55,33 @@ activity_agent = Agent(
 )
 
 
-root_agent = ParallelAgent(
+parallel_research_agent = ParallelAgent(
     name='TravelPlanningAgent',
     description='A comprehensive system that simultaneously searches for hotels, restaurants, and activities for trip planning',
     sub_agents=[hotel_agent, restaurant_agent, activity_agent],
 )
 
+
+
+
+summarizer_agent = Agent(
+    name="SummarizerAgent",
+    model="gemini-2.0-flash",
+    instruction="""
+    You are a travel planner assistant. You will be given a destination and travel dates, and you will synthesize the information from the hotel, restaurant, and activity agents to provide a comprehensive travel plan.
+    Provide a summary of the best travel plan with brief descriptions and recommendations.
+    {hotel_options}
+    {restaurant_options}
+    {activity_options}  
+    """,
+    output_key="travel_plan"
+)
+
+
+root_agent = SequentialAgent(
+    name="TravelPlanningAgent",
+    description="A comprehensive system that simultaneously searches for hotels, restaurants, and activities for trip planning",
+    sub_agents=[parallel_research_agent, summarizer_agent],
+)
 
 
