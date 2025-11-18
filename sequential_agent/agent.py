@@ -60,5 +60,5 @@ recipe_enhancement_agent = Agent(
 root_agent = SequentialAgent(
     name="RecipeDevelopmentSystem",
     description="A simple system that researches, creates, and enhances recipes",
-    sub_agents=[ recipe_creator_agent,recipe_research_agent, recipe_enhancement_agent],
+    sub_agents=[ recipe_research_agent, recipe_creator_agent, recipe_enhancement_agent],
 )
