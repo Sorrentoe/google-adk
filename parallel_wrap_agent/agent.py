@@ -74,7 +74,7 @@ summarizer_agent = Agent(
     {restaurant_options}
     {activity_options}  
     """,
-    output_key="travel_plan"
+    
 )
 
 

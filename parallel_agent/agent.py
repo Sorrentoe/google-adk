@@ -1,4 +1,4 @@
-from google.adk.agents import Agent, ParallelAgent, SequentialAgent
+from google.adk.agents import Agent, ParallelAgent
 from google.adk.tools import google_search
 
 from sequential_agent.agent import root_agent
